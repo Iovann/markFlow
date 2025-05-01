@@ -11,25 +11,52 @@ import {
 import { Label } from "@/src/components/ui/label";
 import { useState } from "react";
 import Image from "next/image";
+import Link from "next/link";
+import { createClient } from "@/utils/supabase/client";
+import { useRouter } from "next/navigation";
+import { Loader2 } from "lucide-react";
 
 export default function LoginPage() {
   const [email, setEmail] = useState("");
+  const router = useRouter();
   const [password, setPassword] = useState("");
+  const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const [authLoading, setAuthLoading] = useState(false);
 
   // Fonction de gestion du login
   const handleLogin = async (e: React.FormEvent) => {
+    setLoading(true);
+    setError(null);
     e.preventDefault();
-    // Ici, tu pourras appeler Supabase Auth
-    console.log("Login avec", email, password);
+    const supabase = createClient();
+    const { error } = await supabase.auth.signInWithPassword({
+      email,
+      password,
+    });
+    setLoading(false);
+    if (error) {
+      setError(error.message);
+    } else {
+      router.push('/dashboard');
+    }
   };
 
   // Fonction pour la connexion avec Google via Supabase OAuth
-  const handleOAuthLogin = async (provider: string) => {
-    // const { error } = await supabase.auth.signInWithOAuth({ provider });
-    // if (error) {
-    //   setError(error.message);
-    // }
+  const handleOAuthLogin = async (provider: "google" | "github") => {
+    setAuthLoading(true);
+    setError(null);
+    const supabase = createClient();
+    const { error } = await supabase.auth.signInWithOAuth({
+      provider,
+      options: {
+        redirectTo: `${window.location.origin}/dashboard`,
+      },
+    });
+    setAuthLoading(false);
+    if (error) {
+      setError(error.message);
+    }
   };
 
   return (
@@ -72,8 +99,14 @@ export default function LoginPage() {
                 required
               />
             </div>
-            <Button className="w-full" type="submit">
-              Se connecter
+            <Button className="w-full py-5" type="submit" disabled={loading}>
+              {
+                loading ? (
+                  <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                ) : (
+                  "Se connecter"
+                )
+              }
             </Button>
           </form>
 
@@ -91,18 +124,23 @@ export default function LoginPage() {
               onClick={() => handleOAuthLogin("google")}
               variant="outline"
               className="w-full"
+              disabled={authLoading}
             >
-              Se connecter avec Google
-            </Button>
-            {/* Tu peux ajouter d'autres boutons pour GitHub, Facebook, etc. */}
-            <Button
-              onClick={() => handleOAuthLogin("github")}
-              variant="outline"
-              className="w-full"
-            >
-              Se connecter avec GitHub
+              {
+                authLoading ? (
+                  <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                ) : (
+                  "Se connecter avec Google"
+                )
+              }
             </Button>
           </div>
+          <p className="text-sm text-center mt-4">
+            Vous n'avez pas de compte ?{" "}
+            <Link href="/register" className="underline text-primary">
+              S'inscrire
+            </Link>
+          </p>
         </CardContent>
       </Card>
     </div>
