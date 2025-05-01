@@ -16,13 +16,13 @@ import {
 } from "@/src/components/ui/sidebar";
 import Image from "next/image";
 import { github, heart } from "lucide-react";
-import { navigation } from "./navItems";
+import { navigation } from "./utils/navItems";
 
 export default function AppSidebar() {
   const pathname = usePathname();
 
   return (
-      <Sidebar>
+      <Sidebar className="">
         <SidebarHeader className="border-b border-border/40 pb-2">
           <div className="flex items-center px-2 py-3">
             <Link
@@ -47,7 +47,7 @@ export default function AppSidebar() {
                   asChild
                   isActive={pathname === item.href}
                   tooltip={item.tooltip}
-                  className="py-4 px-3 rounded-lg hover:bg-muted transition-colors h-12"
+                  className="py-4 px-3 rounded-lg hover:bg-muted-foreground transition-colors h-12"
                 >
                   <Link href={item.href} className="flex items-center gap-3">
                     <div className="flex items-center justify-center size-10">

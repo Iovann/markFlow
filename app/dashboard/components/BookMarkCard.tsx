@@ -1,31 +1,67 @@
+import { Star, ExternalLink, Share2, Pencil, Trash } from "lucide-react";
+import { Button } from "@/src/components/ui/button";
+import { Badge } from "@/src/components/ui/badge";
 import Image from "next/image";
-import { Card, CardContent } from "@/src/components/ui/card";
+import clsx from "clsx";
 
-type BookmarkCardProps = {
+interface BookmarkCardProps {
   title: string;
   description: string;
-  iconUrl: string;
   category: string;
-};
+  layout?: "compact" | "extended";
+}
 
-export default function BookmarkCard({
+export const BookmarkCard = ({
   title,
   description,
-  iconUrl,
   category,
-}: BookmarkCardProps) {
+  layout = "compact",
+}: BookmarkCardProps) => {
+
   return (
-    <Card className="bg-muted/40 border-none shadow-md hover:shadow-lg transition-shadow duration-300 rounded-xl">
-      <CardContent className="p-4 flex flex-col gap-3">
-        <div className="flex items-center justify-between">
-          <h2 className="text-lg font-semibold text-white">{title}</h2>
-          <Image src={iconUrl} alt={title} width={32} height={32} className="rounded-md" />
-        </div>
-        <p className="text-muted-foreground text-sm">{description}</p>
-        <span className="text-xs font-medium bg-secondary px-2 py-0.5 w-fit rounded">
+    <div
+      className={clsx(
+        "group relative overflow-hidden rounded-xl border bg-card text-card-foreground shadow-sm transition-all dark:bg-gradient-to-tl from-[#232323] to-[#515151]",
+        layout === "extended"
+          ? "flex items-center justify-between p-4"
+          : "flex flex-col p-4 hover:border-primary"
+      )}
+    >
+      {/* Icon */}
+      <div
+        className={clsx(
+          layout === "extended" ? "flex items-center gap-4" : "absolute right-4 top-4"
+        )}
+      >
+        <Image src='/assets/icons/logo.svg' alt="markFlow" width={40} height={40} className="rounded-sm" />
+      </div>
+
+      {/* Content */}
+      <div className={clsx(layout === "extended" ? "flex-1" : "mt-12")}>
+        <h3 className="text-lg sm:text-xl font-semibold">{title}</h3>
+        <p className="text-sm text-muted-foreground">{description}</p>
+        <Badge variant="secondary" className="mt-2 w-fit py-2 px-4">
           {category}
-        </span>
-      </CardContent>
-    </Card>
+        </Badge>
+      </div>
+
+      {/* Actions */}
+      <div className="mt-4 flex gap-2 items-center justify-end">
+        {layout === "extended" && (
+          <Button variant="default" size="sm" className="flex items-center gap-1">
+            Visit website <ExternalLink className="w-4 h-4 ml-1" />
+          </Button>
+        )}
+        <Button variant="outline" size="icon">
+          <Pencil className="w-4 h-4" />
+        </Button>
+        <Button variant="outline" size="icon">
+          <Share2 className="w-4 h-4" />
+        </Button>
+        <Button variant="outline" size="icon">
+          <Trash className="w-4 h-4 text-red-500" />
+        </Button>
+      </div>
+    </div>
   );
-}
+};
