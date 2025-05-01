@@ -129,7 +129,7 @@ export default function CreateCategoryModal({
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
-      <DialogContent className="sm:max-w-md bg-zinc-900 text-white border border-zinc-800">
+      <DialogContent className="sm:max-w-lg bg-zinc-900 text-white border border-zinc-800">
         <DialogHeader>
           <DialogTitle className="text-2xl font-medium">
             Add New Category
@@ -196,11 +196,12 @@ export default function CreateCategoryModal({
           </div>
         </div>
 
-        <DialogFooter className="flex-col gap-2 sm:gap-0">
-          <Button
+        <DialogFooter className="flex">
+        <div className="flex flex-col gap-4 w-full">
+        <Button
             type="button"
             variant="default"
-            className="w-full bg-white text-black hover:bg-zinc-200"
+            className="w-full bg-white text-black hover:bg-zinc-200 py-3"
             onClick={handleSubmit}
             disabled={
               !categoryName || !selectedIcon || !selectedColor || isSubmitting
@@ -211,11 +212,12 @@ export default function CreateCategoryModal({
           <Button
             type="button"
             variant="ghost"
-            className="w-full text-zinc-400 hover:text-white hover:bg-transparent"
+            className="w-full text-zinc-400 hover:text-white hover:bg-transparent border border-zinc-400 py-3"
             onClick={() => onOpenChange(false)}
           >
             Cancel
           </Button>
+        </div>
         </DialogFooter>
       </DialogContent>
     </Dialog>

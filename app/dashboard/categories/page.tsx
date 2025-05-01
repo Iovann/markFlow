@@ -44,6 +44,9 @@ export default function CategoriesPage() {
       </div>
       
       {/* Liste des catégories existantes ici */}
+      <div className="mt-4">
+        
+      </div>
       
       {/* Modal pour créer une nouvelle catégorie */}
       <CreateCategoryModal
