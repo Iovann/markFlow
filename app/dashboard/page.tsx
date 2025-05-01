@@ -1,9 +1,21 @@
-import React from "react";
+"use client";
+
+import React, { useState } from "react";
 import { Button } from "@/src/components/ui/button";
 import { ArrowUpDown, List } from "lucide-react";
 import { BookmarkCard } from "./components/BookMarkCard";
+import { bookmarksData } from "./components/utils/bookmarks";
 
-const page = () => {
+const Page = () => {
+  const [layout, setLayout] = useState<"compact" | "extended">("compact");
+  const [sortAsc, setSortAsc] = useState(true);
+
+  const sortedData = [...bookmarksData].sort((a, b) => {
+    return sortAsc
+      ? a.title.localeCompare(b.title)
+      : b.title.localeCompare(a.title);
+  });
+
   return (
     <div className="flex flex-col gap-3">
       <div className="flex justify-between items-center">
@@ -14,36 +26,43 @@ const page = () => {
           </p>
         </div>
         <div className="flex gap-2">
-          <Button variant="outline">
+          <Button
+            variant="outline"
+            onClick={() => setSortAsc((prev) => !prev)}
+          >
             <ArrowUpDown className="mr-1 h-4 w-4" />
             Sort
           </Button>
-          <Button variant="outline">
+          <Button
+            variant="outline"
+            onClick={() =>
+              setLayout((prev) => (prev === "compact" ? "extended" : "compact"))
+            }
+          >
             <List className="mr-1 h-4 w-4" />
-            List
+            {layout === "compact" ? "List" : "Grid"}
           </Button>
         </div>
       </div>
 
-      <div className=" grid grid-cols-4 gap-4">
-        <BookmarkCard
-          title="ChatGPT"
-          description="AI chatbot for conversational assistance."
-          icon="/assets/icons/logo.svg"
-          category="Ai Tools"
-          layout="compact"
-        />
-
-        <BookmarkCard
-          title="ChatGPT"
-          description="AI chatbot for conversational assistance."
-          icon="/assets/icons/logo.svg"
-          category="Ai Tools"
-          layout="compact"
-        />
+      <div
+        className={`grid ${
+          layout === "compact" ? "grid-cols-4" : "grid-cols-1"
+        } gap-4`}
+      >
+        {sortedData.map((bookmark) => (
+          <BookmarkCard
+            key={bookmark.id}
+            title={bookmark.title}
+            description={bookmark.description}
+            category={bookmark.category}
+            rating={bookmark.rating}
+            layout={layout}
+          />
+        ))}
       </div>
     </div>
   );
 };
 
-export default page;
+export default Page;

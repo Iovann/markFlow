@@ -15,7 +15,6 @@ import {
   SidebarProvider,
 } from "@/src/components/ui/sidebar";
 import Image from "next/image";
-import { github, heart } from "lucide-react";
 import { navigation } from "./utils/navItems";
 
 export default function AppSidebar() {

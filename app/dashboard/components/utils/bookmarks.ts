@@ -1,0 +1,73 @@
+export const bookmarksData = [
+  {
+    id: 1,
+    title: "ChatGPT",
+    description: "AI chatbot for conversational assistance.",
+    category: "Ai Tools",
+    rating: 5,
+  },
+  {
+    id: 2,
+    title: "Figma",
+    description: "Cloud-based UI/UX design tool.",
+    category: "Design",
+    rating: 4,
+  },
+  {
+    id: 3,
+    title: "Spotify",
+    description: "Stream millions of songs and podcasts.",
+    category: "Music",
+    rating: 3,
+  },
+  {
+    id: 4,
+    title: "ChatGPT",
+    description: "AI chatbot for conversational assistance.",
+    category: "Ai Tools",
+    rating: 5,
+  },
+  {
+    id: 5,
+    title: "Figma",
+    description: "Cloud-based UI/UX design tool.",
+    category: "Design",
+    rating: 4,
+  },
+  {
+    id: 6,
+    title: "Spotify",
+    description: "Stream millions of songs and podcasts.",
+    category: "Music",
+    rating: 3,
+  },
+
+  {
+    id: 7,
+    title: "Figma",
+    description: "Cloud-based UI/UX design tool.",
+    category: "Design",
+    rating: 4,
+  },
+  {
+    id: 8,
+    title: "Spotify",
+    description: "Stream millions of songs and podcasts.",
+    category: "Music",
+    rating: 3,
+  },
+  {
+    id: 9,
+    title: "ChatGPT",
+    description: "AI chatbot for conversational assistance.",
+    category: "Ai Tools",
+    rating: 5,
+  },
+  {
+    id: 10,
+    title: "Figma",
+    description: "Cloud-based UI/UX design tool.",
+    category: "Design",
+    rating: 4,
+  },
+];

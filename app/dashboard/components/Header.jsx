@@ -18,7 +18,7 @@ export default function Header() {
     <header className="sticky top-0 z-10 flex h-16 items-center gap-4 border-b bg-background px-4 md:px-6">
       <SidebarTrigger className="mr-2 md:hidden" />
 
-      <div className="flex flex-1 items-center justify-between">
+      <div className="flex flex-1 items-center justify-between py-16">
         {/* Title */}
         <div className="hidden md:block">
           <h1 className="text-xl font-semibold">{getPageTitle()}</h1>
