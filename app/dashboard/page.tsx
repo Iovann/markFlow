@@ -56,7 +56,6 @@ const Page = () => {
             title={bookmark.title}
             description={bookmark.description}
             category={bookmark.category}
-            rating={bookmark.rating}
             layout={layout}
           />
         ))}
